@@ -18,17 +18,38 @@ package org.springframework.android.showcase;
 
 import org.springframework.android.showcase.rest.HttpGetActivity;
 import org.springframework.android.showcase.rest.HttpPostActivity;
+import org.springframework.android.showcase.rest.HttpPostJsonXmlActivity;
+import org.springframework.android.showcase.rest.Message2;
+import org.springframework.http.HttpAuthentication;
+import org.springframework.http.HttpBasicAuthentication;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.app.ProgressDialog;
 
 /**
  * @author Roy Clarkson
  * @author Pierre-Yves Ricau
  */
-public class MainActivity extends AbstractMenuActivity {
+public class MainActivity extends AbstractMenuActivity {   //było AbstractMenuActivity
 
 	public String dupa;
 	// ***************************************
@@ -43,6 +64,22 @@ public class MainActivity extends AbstractMenuActivity {
 	protected String[] getMenuItems() {
 		return getResources().getStringArray(R.array.main_menu_items);
 	}
+
+/*
+	@Override
+	protected OnClickListener getButtonOnClickListner1() {
+		//new HttpPostJsonXmlActivity.PostMessageTask().execute(MediaType.APPLICATION_JSON);
+
+		return null;
+	}
+
+//final Button buttonJson = (Button) findViewById(R.id.bNewAccount);
+
+	/*buttonJson.setOnClickListener(new View.OnClickListener() {
+		public void onClick(View v) {
+			new HttpPostJsonXmlActivity.PostMessageTask().execute(MediaType.APPLICATION_JSON);
+		}
+	});*/
 
 	@Override
 	protected OnItemClickListener getMenuOnItemClickListener() {
@@ -63,5 +100,7 @@ public class MainActivity extends AbstractMenuActivity {
 			}
 		};
 	}
+
+
 
 }

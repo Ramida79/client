@@ -5,12 +5,69 @@
     android:layout_centerVertical="true"
     android:orientation="vertical" >
 
+
+
     <TextView
         android:id="@+id/text_view_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="8dip" />
+
+
+
+    <TextView
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tLogin" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="admin"
+        android:ems="10"
+        android:id="@+id/eLogin" />
+
+
+    <TextView
+        android:text="Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tPass" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/ePass" />
+
+
+    <Button
+        android:text="Sign in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bLoggin" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bNewAccount" />
+
+    <CheckBox
+        android:text="Auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cBoxPowt" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInfo" />
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -21,5 +78,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </FrameLayout>
+
+
+
 
 </LinearLayout>

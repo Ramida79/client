@@ -134,7 +134,7 @@ public class HttpPostJsonXmlActivity extends AbstractAsyncActivity {
 				// HttpEntity object to use for the request
 
 
-				String info = "{ \"username\": \"PNowak99\",  \"password\": \"rower\"}";
+				String info = "{ \"username\": \"PNowak990\",  \"password\": \"rower\"}";
 				HttpEntity<String> requestEntity = new HttpEntity<String>(info, requestHeaders);
 
 				// Create a new RestTemplate instance
