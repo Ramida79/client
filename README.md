@@ -13,4 +13,4 @@ To run and test Warehouse application you will need following software
 * [Warehouse] source code from github
 
  [Android Studio]: <https://developer.android.com/studio/index.html>
- [Warehouse]:<http://github.com>
+ [Warehouse]:<https://github.com/Ramida79/client>
