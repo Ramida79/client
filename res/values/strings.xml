@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Spring Showcase</string>
+    <string name="app_name">Wearehouse</string>
     <string name="main_menu">Select an option to view the associated example.</string>
     <string name="http_get_description">These examples make HTTP GET requests to the server.</string>
     <string name="http_get_json_xml_description">These examples retrieve a list of states from the

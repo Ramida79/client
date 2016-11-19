@@ -18,6 +18,7 @@ package org.springframework.android.showcase;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.springframework.android.showcase.rest.Coordinates;
+import org.springframework.android.showcase.rest.Get_drawer_list;
+import org.springframework.android.showcase.rest.HttpGetActivity;
+import org.springframework.android.showcase.rest.HttpGetJsonActivity;
 import org.springframework.android.showcase.rest.HttpPostJsonXmlActivity;
 import org.springframework.android.showcase.rest.Login;
 import org.springframework.android.showcase.rest.Message2;
@@ -49,6 +54,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 /**
  * @author Roy Clarkson
@@ -96,6 +103,8 @@ private boolean run1;
 		ButtonLogin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new PostMessageTaskLoggin().execute(MediaType.APPLICATION_JSON);
+
+
 			}
 		});
 
@@ -201,8 +210,8 @@ private boolean run1;
 						Login.class);
 
 				// Return the response body to display to the user
-				Login nowa = response.getBody();
-				return nowa;//response.getBody();
+				Login result = response.getBody();
+				return result;//response.getBody();
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
@@ -213,19 +222,29 @@ private boolean run1;
 		@Override
 		protected void onPostExecute(Login result) {
 			dismissProgressDialog();
-			showResult(result);
+			showResult(result, message.getUsername());
 		}
 
 	}
 	// ***************************************
 	// Private methods
 	// ***************************************
-	private void showResult(Login result) {
+	private void showResult(Login result, String login) {
 		if (result != null) {
 			// display a notification to the user with the response message
-			Toast.makeText(this, result.getPass(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Signed as " + login, Toast.LENGTH_LONG).show();
+
+			setTitle("Warehouse Logged as "+ login);
+
+
+		//	Intent myIntent = new Intent(getApplicationContext(),HttpGetJsonActivity.class);
+			Intent myIntent = new Intent(getApplicationContext(),Get_drawer_list.class);
+			myIntent.putExtra("user", login); //Optional parameters
+			myIntent.putExtra("token", result.getPass());
+			startActivity(myIntent);
+
 		} else {
-			Toast.makeText(this, "I got null, something happened!", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Incorrect password or login!", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -303,10 +322,6 @@ private boolean run1;
 					restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
 				}
 
-
-
-
-
 				// Make the network request, posting the message, expecting a String in response from the server
 				ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
 						String.class);
@@ -354,7 +369,7 @@ private boolean run1;
 	// ***************************************
 	// Private classes  Logowanie do konta
 	// ***************************************
-	private class PostMessageTaskSelfReturn extends AsyncTask<MediaType, Void, Login> {
+	private class PostMessageTaskSelfReturn extends AsyncTask<MediaType, Void, Coordinates> {
 
 		private Message2 message;
 
@@ -368,8 +383,6 @@ private boolean run1;
 
 			message = new Message2();
 
-
-
 			editText = (EditText) findViewById(R.id.eLogin);
 			message.setUsername(editText.getText().toString());
 
@@ -379,7 +392,7 @@ private boolean run1;
 		}
 
 		@Override
-		protected Login doInBackground(MediaType... params) {
+		protected Coordinates doInBackground(MediaType... params) {
 			try {
 				if (params.length <= 0) {
 					return null;
@@ -423,11 +436,11 @@ private boolean run1;
 
 
 				// Make the network request, posting the message, expecting a String in response from the server
-				ResponseEntity<Login> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-						Login.class);
+				ResponseEntity<Coordinates> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
+						Coordinates.class);
 
 				// Return the response body to display to the user
-				Login nowa = response.getBody();
+				Coordinates nowa = response.getBody();
 				return nowa;//response.getBody();
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);
@@ -437,13 +450,17 @@ private boolean run1;
 		}
 
 		@Override
-		protected void onPostExecute(Login result) {
+		protected void onPostExecute(Coordinates result) {
 			dismissProgressDialog();
 			//showResult(result);
 
 			TextView tInfo = (TextView) findViewById(R.id.textInfo);
+			if(result != null)
+							tInfo.setText("x = "+result.getX() +" y = " +result.getY()+ " z = "+result.getZ());
+			else
+				tInfo.setText("nie dziala");
 
-			tInfo.setText(result.getPass());
+
 			if(run1)
 			{
 				try {

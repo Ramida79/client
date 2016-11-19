@@ -32,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,10 @@ public class HttpGetJsonActivity extends AbstractAsyncListActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
+
+		Intent intent = getIntent();
+		String value = intent.getStringExtra("user");
+		setTitle(value + " welcome @ Warehouse");
 
 		// when this activity starts, initiate an asynchronous HTTP GET request
 		new DownloadStatesTask().execute();
@@ -89,8 +94,9 @@ public class HttpGetJsonActivity extends AbstractAsyncListActivity {
 				// The URL for making the GET request
 				final String url =  "http://warehouse321.pythonanywhere.com/api/users/all";
 
+				Intent intent = getIntent();
 
-				HttpAuthentication authHeader = new HttpBasicAuthentication("admin", "13371337");
+				HttpAuthentication authHeader = new HttpBasicAuthentication(intent.getStringExtra("user"), "13371337");//zmienic podobnie tak jak z userem
 				HttpHeaders requestHeaders = new HttpHeaders();
 				requestHeaders.setAuthorization(authHeader);
 

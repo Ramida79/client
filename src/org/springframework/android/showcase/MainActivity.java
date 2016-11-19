@@ -51,7 +51,6 @@ import android.app.ProgressDialog;
  */
 public class MainActivity extends AbstractMenuActivity {   //było AbstractMenuActivity
 
-	public String dupa;
 	// ***************************************
 	// AbstractMenuActivity methods
 	// ***************************************
