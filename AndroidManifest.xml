@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="org.springframework.android.showcase.rest.Drawer" />
         <activity android:name="org.springframework.android.showcase.rest.Get_drawer_list" />
         <activity android:name="org.springframework.android.showcase.rest.HttpGetActivity" />
         <activity android:name="org.springframework.android.showcase.rest.HttpGetJsonXmlActivity" />

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.springframework.android.showcase.AbstractAsyncListActivity;
 import org.springframework.android.showcase.R;
@@ -27,6 +29,7 @@ import java.util.List;
 
 public class Get_drawer_list extends Activity {
 
+    String value = "zero";
     //protected static final String TAG = HttpGetJsonActivity.class.getSimpleName();
 
     // ***************************************
@@ -36,16 +39,31 @@ public class Get_drawer_list extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.get_drawer_list);
+        setContentView(R.layout.get_drawer_list);
+
+        final Button BNewDrawer = (Button) this.findViewById(R.id.b_NewDrawer);
+
+        BNewDrawer.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(),Drawer.class);
+                myIntent.putExtra("user", value); //Optional parameters
+                //myIntent.putExtra("token", result.getPass());
+                startActivity(myIntent);
+
+
+            }
+        });
+
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        setContentView(R.layout.get_drawer_list);
+
 
         Intent intent = getIntent();
-        String value = intent.getStringExtra("user");
+        value = intent.getStringExtra("user");
         setTitle(value + " welcome @ Warehouse");
 
 
