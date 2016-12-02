@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.springframework.android.showcase.AbstractAsyncListActivity;
 import org.springframework.android.showcase.R;
@@ -22,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by PK on 2016-10-20.
@@ -30,6 +33,12 @@ import java.util.List;
 public class Get_drawer_list extends Activity {
 
     String value = "zero";
+    ListView listView ;
+
+    TextView tX,tY,tZ;
+
+
+
     //protected static final String TAG = HttpGetJsonActivity.class.getSimpleName();
 
     // ***************************************
@@ -40,6 +49,13 @@ public class Get_drawer_list extends Activity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.get_drawer_list);
         setContentView(R.layout.get_drawer_list);
+
+
+        listView = (ListView) findViewById(R.id.DrawerList);
+        tX = (TextView) findViewById(R.id.tvXpos);
+        tY = (TextView) findViewById(R.id.tvYpos);
+        tZ = (TextView) findViewById(R.id.tvZpos);
+
 
         final Button BNewDrawer = (Button) this.findViewById(R.id.b_NewDrawer);
 
@@ -66,9 +82,11 @@ public class Get_drawer_list extends Activity {
         value = intent.getStringExtra("user");
         setTitle(value + " welcome @ Warehouse");
 
+         // when this activity starts, initiate an asynchronous HTTP GET request
+             new Get_drawer_list.DownloadStatesTask().execute();
 
-             // when this activity starts, initiate an asynchronous HTTP GET request
-        //      new HttpGetJsonActivity.DownloadStatesTask().execute();
+             new GetHandleParams().execute();
+
     }
 
 
@@ -81,13 +99,58 @@ public class Get_drawer_list extends Activity {
             return;
         }
 
-       // UsersListAdapter adapter = new UsersListAdapter(this, states);
-        //      setListAdapter(adapter);
+        UsersListAdapter adapter = new UsersListAdapter(this, states);
+       // setListAdapter(adapter);
+        listView.setAdapter(adapter);
+
     }
+   private void  refreshParams(HandleParams p)
+   {
+       tX.setText(String.valueOf(p.getX()));
+       tY.setText(String.valueOf(p.getY()));
+       tZ.setText(String.valueOf(p.getZ()));
+
+   }
+
 
     // ***************************************
     // Private classes
     // ***************************************
+    private class GetHandleParams extends AsyncTask<Void, Void, HandleParams> {
+        @Override
+        protected void onPreExecute() {
+            //      showLoadingProgressDialog();
+        }
+
+        @Override
+        protected HandleParams doInBackground(Void... params) {
+            try {
+                Random generator = new Random();
+
+                    HandleParams Hparams = new HandleParams();
+                Hparams.setAll(generator.nextInt(50),generator.nextInt(50),generator.nextInt(50),generator.nextInt(50),generator.nextInt(50),generator.nextInt(50));
+
+                Thread.sleep(1000);
+
+                return Hparams;
+                }
+            catch (Exception e) {
+                //        Log.e(TAG, e.getMessage(), e);
+            }
+                return null;
+
+            }
+
+        @Override
+        protected void onPostExecute(HandleParams result) {
+            //      dismissProgressDialog();
+            if(result!=null)           refreshParams( result);
+
+
+            new GetHandleParams().execute();
+        }
+    }
+
     private class DownloadStatesTask extends AsyncTask<Void, Void, List<Users>> {
 
         @Override

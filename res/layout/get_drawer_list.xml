@@ -121,4 +121,11 @@
         android:id="@+id/b_NewDrawer"
         android:layout_alignParentBottom="true"
         android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/DrawerList"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
+
 </LinearLayout>
