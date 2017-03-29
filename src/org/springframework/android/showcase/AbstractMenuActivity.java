@@ -171,8 +171,8 @@ private boolean run1;
 				MediaType mediaType = params[0];
 
 				// The URL for making the POST request
-				final String url =  "http://warehouse321.pythonanywhere.com/api/token";
-
+				//final String url =  "http://warehouse321.pythonanywhere.com/api/token";
+				final String url =  "http://192.168.1.122:5000/api/users/token";
 
 				HttpAuthentication authHeader = new HttpBasicAuthentication(message.getUsername(), message.getPass());//haslo 13371337
 				HttpHeaders requestHeaders = new HttpHeaders();

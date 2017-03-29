@@ -114,13 +114,29 @@
 
     </LinearLayout>
 
+        <Button
+            android:text="New drawer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/b_NewDrawer"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible" />
+
+        <Button
+            android:text="Get drawer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/b_GetDrawer"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible" />
     <Button
-        android:text="New drawer"
+        android:text="Put drawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/b_NewDrawer"
+        android:id="@+id/b_PutDrawer"
         android:layout_alignParentBottom="true"
         android:visibility="visible" />
+
 
     <ListView
         android:id="@+id/DrawerList"
